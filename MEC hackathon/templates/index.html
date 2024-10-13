@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mecjathon Submission</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='media/WoW.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='Style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Fjalla+One&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <style>
+        #chatbox-container {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            width: 80%;
+            margin: 20px auto;
+            border-radius: 5px;
+        }
+        #chatbox-messages {
+            height: 300px;
+            overflow-y: scroll;
+            padding: 10px;
+            border: 1px solid #555;
+            background-color: #222;
+            margin-bottom: 10px;
+        }
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .user-message {
+            background-color: #4CAF50;
+            color: white;
+            text-align: right;
+        }
+        .bot-message {
+            background-color: #555;
+            text-align: left;
+        }
+        #chatbox-input {
+            width: calc(100% - 60px);
+            padding: 10px;
+            margin-right: 10px;
+        }
+        #chatbox-form button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #chatbox-form button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body style="background-color: rgb(167, 167, 167);">
+    <h1 id="title">Acedia</h1>
+    <div class="block">
+        <div id="text1">
+            <p id="ali">Educational chat-box for secondary level education.</p>
+        </div>
+    </div>
+    <div class="block">
+        <h2>Chatbox</h2>
+        <div id="chatbox-container">
+            <div id="chatbox-messages"></div>
+            <form id="chatbox-form">
+                <input type="text" id="chatbox-input" placeholder="Type your message..." required>
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        let awaitingFollowUp = false;
+
+        document.getElementById('chatbox-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let userMessage = document.getElementById('chatbox-input').value;
+            if (userMessage.trim() === '') return;
+
+            let messageContainer = document.createElement('div');
+            messageContainer.classList.add('message', 'user-message');
+            messageContainer.innerText = userMessage;
+            document.getElementById('chatbox-messages').appendChild(messageContainer);
+            document.getElementById('chatbox-messages').scrollTop = document.getElementById('chatbox-messages').scrollHeight;
+
+            let requestData = awaitingFollowUp 
+                ? { query: userMessage, wants_related: userMessage.toLowerCase() }
+                : { query: userMessage, wants_related: 'no' };
+
+            fetch('/solve_question', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(requestData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                let botMessageContainer = document.createElement('div');
+                botMessageContainer.classList.add('message', 'bot-message');
+                botMessageContainer.innerHTML = `<strong>Bot:</strong> ${data.math_answer}`;
+                document.getElementById('chatbox-messages').appendChild(botMessageContainer);
+
+                if (data.related_questions) {
+                    let relatedQuestionsContainer = document.createElement('div');
+                    relatedQuestionsContainer.classList.add('message', 'bot-message');
+                    relatedQuestionsContainer.innerHTML = `<strong>Bot:</strong> ${data.related_questions.join('<br>')}`;
+                    document.getElementById('chatbox-messages').appendChild(relatedQuestionsContainer);
+                }
+
+                if (data.follow_up) {
+                    let followUpContainer = document.createElement('div');
+                    followUpContainer.classList.add('message', 'bot-message');
+                    followUpContainer.innerHTML = `<strong>Bot:</strong> ${data.follow_up}`;
+                    document.getElementById('chatbox-messages').appendChild(followUpContainer);
+                    awaitingFollowUp = true;
+                } else {
+                    awaitingFollowUp = false;
+                }
+
+                document.getElementById('chatbox-messages').scrollTop = document.getElementById('chatbox-messages').scrollHeight;
+            })
+            .catch(error => console.error('Error:', error));
+
+            document.getElementById('chatbox-input').value = '';
+        });
+    </script>
+</body>
+</html>

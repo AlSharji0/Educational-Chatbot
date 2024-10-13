@@ -1,0 +1,282 @@
+*{
+    font-family: Roboto;
+}
+*::selection{
+    background-color: hsl(0, 0%, 10%);
+}
+#ali{
+    font-family: "Fjalla One", serif;
+}
+body{
+    position: relative;
+    background-image: url(/static/Future.jpg);
+    background-repeat: no-repeat;
+    background-position: normal;
+    background-attachment: fixed;
+    background-size: cover;
+    background-blend-mode: darken;
+}
+body::after{
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Change opacity here */
+    pointer-events: none;
+    z-index: -1;
+}
+#title{
+    background-color: hsla(0, 0%, 36%);
+    margin: 0;
+    margin-left: 58px;
+    height: 56.5px;
+    font-size: 47px;
+    font-weight: bold;
+     font-family: "Playfair Display", serif;
+}
+
+.dropdown{
+    display: inline-block;
+    position: sticky;
+    top: 0;
+    left: 0;
+    float: left;
+}
+.dropdown button{
+    background-color: hsla(0, 0%, 36%);
+    color: white;
+    font-size: 30px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+.dropdown a{
+    display: block;
+    color: black;
+    text-decoration: none;
+    padding: 10px 15px;
+}
+.dropdown .content{
+    display: none;
+    background-color: hsla(0, 0%, 36%, 0.582);
+    position: absolute;
+    min-width: 100px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.432);
+    font-weight: bold;
+}
+.dropdown:hover .content{
+    display: block;
+}
+.dropdown:hover button{
+    background-color: hsla(0, 0%, 36%);
+}
+.dropdown a:hover{
+    background-color: hsla(0, 0%, 36%, 0.582);
+}
+.block{
+    background-color: hsla(0, 0%, 36%, 0.582);
+    height: 200px;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    margin: 0px;
+}
+@keyframes slideLeft{
+    from{transform: translateY(20px);
+        box-shadow: 50px 50px 20px rgb(0, 0, 0);}
+    }
+#text1{
+    overflow: hidden;
+    width: auto;
+    height: auto;
+    text-align: center;
+    font-size: xx-large;
+    font-weight: bold;
+    font-family: "Fjalla One", serif;
+    animation-name: slideLeft;
+    animation-duration: 1s;
+    animation-iteration-count: initial;
+    animation-direction: normal;
+    animation-play-state: running;
+    animation-timing-function: cubic-bezier(0.39, 0.575, 0.565, 1);
+}
+.chat-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
+    width: 100%;
+}
+
+.chat-box {
+    width: 450px;
+    height: 600px;
+    background-color: hsla(0, 0%, 36%, 0.8); /* Updated theme color */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+.messages {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: hsla(0, 0%, 36%, 0.6); /* Updated background for messages */
+}
+
+.message {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    max-width: 80%;
+}
+
+.message.bot {
+    background-color: hsla(0, 0%, 36%, 0.8); /* Bot message color */
+    color: white;
+    align-self: flex-start;
+}
+
+.message.user {
+    background-color: hsla(0, 0%, 36%, 0.4); /* User message color */
+    color: white;
+    align-self: flex-end;
+}
+
+.input-box {
+    display: flex;
+    border-top: 1px solid hsla(0, 0%, 36%); /* Updated border color */
+    padding: 10px;
+    background-color: hsla(0, 0%, 36%, 0.3); /* Updated input box background */
+}
+
+.input-box input {
+    flex-grow: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid hsla(0, 0%, 36%, 0.6); /* Updated input border */
+    border-radius: 5px;
+    outline: none;
+    background-color: hsla(0, 0%, 36%, 0.1); /* Input field background */
+    color: white;
+}
+
+.input-box button {
+    padding: 10px 20px;
+    margin-left: 10px;
+    background-color: hsla(0, 0%, 36%); /* Updated button color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.input-box button:hover {
+    background-color: hsla(0, 0%, 26%); /* Slightly darker on hover */
+}
+
+.table {
+    background-color: hsla(0, 0%, 36%, 0.582);
+    margin: auto;
+    width: fit-content;
+    font-size: 25px;
+    display: none;
+    border-collapse: collapse;
+    animation-name: slideLeft;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    animation-timing-function: cubic-bezier(0.39, 0.575, 0.565, 1);
+}
+.block button {
+    background-color: rgba(92, 92, 92, 0);
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Show the table when hovering over the button */
+.block:hover + .table {
+    display: table; /* Change to table to preserve table layout */
+}
+#an1{
+    margin: 5px;  
+    background-color: hsla(0, 0%, 36%);  
+    width: 12%;
+    animation-name: SL;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    animation-timing-function: cubic-bezier(0.39, 0.575, 0.565, 1);
+}
+
+#an2 {
+    margin: 5px;
+    background-color: rgb(14, 14, 14);
+    align-content: end;
+    width: 20%;
+    animation-name: SR;
+    animation-duration: 3s;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    animation-timing-function: cubic-bezier(0.39, 0.575, 0.565, 1);
+
+    /* Add these properties to align it to the right */
+    position: absolute;
+    right: 0;
+    text-align: right;
+}
+
+#an1, #an2 {
+    display: none;
+}
+
+#r1:hover ~ #an1,
+#r1:hover ~ #an2 {
+    display: block;
+}
+@keyframes SL{
+    from{transform: translateX(-1000px);}
+}
+@keyframes SR{
+    from{transform: translateX(1000px);}
+}
+
+/* Initially hide the checkbox container */
+.checkbox-container {
+    display: none;
+    background-color: hsla(0, 0%, 36%, 0.582); /* Same as table */
+    padding: 10px;
+    margin: auto;
+    width: fit-content;
+    font-size: 20px;
+    border-radius: 5px;
+    text-align: left;
+    border-collapse: collapse;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Same shadow as the table */
+}
+
+/* Keep the checkboxes visible while hovering over the block or the checkbox container */
+.block:hover + .checkbox-container,
+.checkbox-container:hover {
+    display: block;
+}
+
+/* Style the checkbox labels and inputs */
+.checkbox-container label {
+    color: white; /* Same text color as the table */
+    font-weight: bold;
+}
+
+.checkbox-container input[type="checkbox"] {
+    margin-right: 10px;
+    background-color: hsla(0, 0%, 36%, 0.582); /* Matching table background */
+    border: 2px solid white; /* White border for better visibility */
+    accent-color: white; /* Ensure the checkmark is white */
+}
+
