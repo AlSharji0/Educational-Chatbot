@@ -1,4 +1,4 @@
-# Project Title: Educational Chatbot for Secondary Education
+# Project Title: Educational Chatbot for Secondary Education (2024 Mechathon Bot Battle Winner)
 
 # Overview
 This project is an Educational Chatbot designed to assist secondary-level students with their academic questions. The chatbot can solve math-related questions and provide relevant video recommendations based on transcripts. The project includes a frontend built in HTML/CSS and a backend powered by Flask and OpenAI's GPT-3.5 API.
