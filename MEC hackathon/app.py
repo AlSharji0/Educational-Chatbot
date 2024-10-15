@@ -25,7 +25,7 @@ def cnn_lstm_text_encoder(vocab_size, embedding_dim, max_length):
 def chatbot(query, autoencoder, tokenizer, m_length, user_wants_related):
     """Main chatbot logic for answering math questions and generating related questions."""
     
-    # Answer the math question
+    #Answer the math question
     response_math_answer = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=[
@@ -39,16 +39,14 @@ def chatbot(query, autoencoder, tokenizer, m_length, user_wants_related):
     math_answer = response_math_answer['choices'][0]['message']['content']
 
     if not user_wants_related:
-        # Just return the answer with a follow-up prompt asking if they want related questions.
         return {
             "math_answer": math_answer,
             "follow_up": "Do you want similar questions?"
         }
     
-    # If user wants related questions
     related_questions = []
     if user_wants_related:
-        # Add variation using the autoencoder, then refine with GPT
+        # Add variation using the autoencoderthen refine with GPT
         encoded_query = tokenizer.texts_to_sequences([query])
         encoded_query = tf.keras.preprocessing.sequence.pad_sequences(encoded_query, maxlen=m_length, padding='post')
         
@@ -89,10 +87,8 @@ def solve_question():
     print(f"Received POST data: {data}")
     query = data['query']
     
-    # Call the chatbot function to answer the question
     result = chatbot(query, autoencoder, tokenizer, max_length, user_wants_related=False)
 
-    # Log the result to make sure it's correct
     print(f"Chatbot result: {result}")
 
     return jsonify(result)
@@ -102,7 +98,6 @@ def related_questions():
     data = request.json
     query = data['query']
 
-    # Call the chatbot to generate related questions using CNN if the user opts in
     result = chatbot(query, autoencoder, tokenizer, max_length, user_wants_related=True)
 
     print(f"Related questions result: {result}")
